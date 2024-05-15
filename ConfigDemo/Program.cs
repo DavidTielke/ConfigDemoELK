@@ -1,11 +1,18 @@
-﻿namespace ConfigDemo
+﻿using System.Reflection;
+
+[assembly:AssemblyVersion("1.0.0.1")]
+
+namespace ConfigDemo
 {
+
     internal class Program
     {
         static void Main(string[] args)
         {
             var current = AppDomain.CurrentDomain;
             current.UnhandledException += UnhandledException;
+
+            Console.WriteLine(Assembly.GetExecutingAssembly().GetName().Version);
 
 
             var config = new Configurator();
@@ -17,7 +24,6 @@
                 Age = 39
             };
 
-            throw new Exception();
 
             config.SetConfigObject("Camera1", configObject);
 
