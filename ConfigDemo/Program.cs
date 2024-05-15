@@ -4,6 +4,10 @@
     {
         static void Main(string[] args)
         {
+            var current = AppDomain.CurrentDomain;
+            current.UnhandledException += UnhandledException;
+
+
             var config = new Configurator();
 
             var configObject = new FooConfig()
@@ -12,6 +16,8 @@
                 Name = "David",
                 Age = 39
             };
+
+            throw new Exception();
 
             config.SetConfigObject("Camera1", configObject);
 
@@ -24,6 +30,14 @@
             config.SetConfigObject("Camera1", configObject);
 
             var config2 = config.GetConfigObject<FooConfig>("Camera1");
+        }
+
+        private static void UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            //if (e.ExceptionObject is CameraException)
+            //{
+
+            //}
         }
     }
 
